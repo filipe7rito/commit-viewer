@@ -1,0 +1,24 @@
+.nav-tabs {
+    width: fit-content;
+}
+
+.activeTab {
+    font-weight: bold;
+    border-bottom: 3px solid #4E7FFF;
+
+}
+
+.tab {
+    display: block;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+
+}
+
+.tab:hover {
+    color: #4B7EFF
+}
+
+.content {
+    margin-top: 30px;
+}

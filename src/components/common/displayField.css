@@ -1,0 +1,13 @@
+.display {
+    flex-direction: column;
+    height: 100%;
+    margin-right: 20px;
+}
+
+.displayValue {
+    flex: 1;
+}
+
+.displayLabel {
+    flex: 1;
+}

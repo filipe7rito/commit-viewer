@@ -1,0 +1,38 @@
+.analysis {
+    height: 100px;
+    display: flex;
+    flex-direction: row;
+}
+
+.badgeDiv {
+    height: 100%;
+    flex: 1;
+}
+
+.changes {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+}
+
+.statistics {
+    display: flex;
+    flex: 1;
+    flex-direction: row;
+}
+
+.comparison {
+    width: fit-content;
+    flex-direction: column;
+}
+
+.analysisBtn {
+    flex: 1;
+    height: 50%;
+}
+
+.label {
+    font-weight: bold;
+}
