@@ -1,0 +1,13 @@
+@font-face {
+    font-weight: 400;
+    font-family: 'clearSansRegular':
+    src: local('clearSansRegular'),
+         url('./clear-sans-400.woff2') format('woff2');
+}
+
+@font-face {
+    font-weight: bold;
+    font-family: 'clearSansBold':
+    src: local('clearSansBold'),
+         url('./fonts/clear-sans-700.woff2') format('woff2');
+}

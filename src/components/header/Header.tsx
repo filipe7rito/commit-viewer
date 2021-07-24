@@ -1,7 +1,41 @@
 import { css, cx } from 'emotion';
+import gh from 'github-url-to-object';
 import * as React from 'react';
+import { useState } from 'react';
 
-export function Header() {
+export function Header({
+  onSearch,
+}: {
+  onSearch: ({ user, repository }: { user: string; repository: string }) => void;
+}) {
+  const [repoUrlData, setRepoUrlData] = useState<{
+    url: string;
+    isValid: boolean;
+  }>({
+    url: '',
+    isValid: true,
+  });
+
+  const handleSearch = () => {
+    const githubData = gh(repoUrlData.url);
+
+    if (!githubData) {
+      setRepoUrlData({
+        ...repoUrlData,
+        isValid: false,
+      });
+
+      return;
+    }
+
+    setRepoUrlData({
+      ...repoUrlData,
+      isValid: true,
+    });
+
+    onSearch({ user: githubData.user, repository: githubData.repo });
+  };
+
   return (
     <div className={headerStyle}>
       <nav className={logoStyle}>
@@ -12,25 +46,43 @@ export function Header() {
         </a>
       </nav>
       <nav className={searchWrapperStyle}>
-        <div className="row g-3 align-items-center">
+        <div className="row g-3 align-items-baseline">
           <div className="col-auto">
             <label htmlFor="search-input" className="col-form-label">
               Repository URL
             </label>
           </div>
-          <div className={cx('input-group-sm col-auto', inputWrapperStyle)}>
+          <div className={cx('input-group-sm col-auto position-relative', inputWrapperStyle)}>
             <input
-              type="text"
               id="search-input"
-              className={cx('form-control', searchInputStyle)}
+              type="text"
+              value={repoUrlData.url}
+              autoComplete="off"
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                setRepoUrlData({ url: e.target.value, isValid: true })
+              }
+              className={cx('form-control', searchInputStyle, {
+                'is-invalid': !repoUrlData.isValid,
+              })}
               aria-describedby="search-input"
             />
+            <div className="invalid-tooltip">This URL is not valid</div>
           </div>
-        </div>
-        <div className="col-auto ms-2 mt-1">
-          <button type="button" className="btn btn-primary btn-sm">
-            Load commits
-          </button>
+          <div className="col-auto mt-1">
+            <button
+              type="button"
+              className={cx(
+                'btn btn-primary btn-sm',
+                css`
+                  font-weight: 600;
+                  font-size: 13px;
+                `,
+              )}
+              onClick={handleSearch}
+            >
+              Load commits
+            </button>
+          </div>
         </div>
       </nav>
     </div>
@@ -42,6 +94,10 @@ const searchWrapperStyle = css`
   display: flex;
   flex-direction: row;
   justify-content: center;
+
+  label {
+    font-size: 14px;
+  }
 `;
 
 const inputWrapperStyle = css`

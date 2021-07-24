@@ -1,40 +1,65 @@
 import { css } from 'emotion';
-import React from 'react';
+import React, { useState } from 'react';
 import { Header } from './components/header';
+import { Footer } from './components/footer';
+import { Menu } from './components/menu/Menu';
+import { CommitsList } from './components/commits-list';
+
+export type GithubInfo = {
+  user: string;
+  repository: string;
+};
 
 function App() {
+  const [githubInfo, setGithubInfo] = useState<GithubInfo>();
+
+  const handleSearch = (info: GithubInfo) => {
+    setGithubInfo(info);
+  };
+
   return (
-    <div className={wrapper}>
-      <Header />
-      <main className={container} />
-      <Footer />
+    <div className={wrapperStyle}>
+      <Header onSearch={handleSearch} />
+      <main className={containerStyle}>
+        <aside>
+          <Menu />
+        </aside>
+        <div className={mainContainerWrapperStyle}>
+          <div className={commitsContainerStyle}>
+            <CommitsList githubInfo={githubInfo} />
+          </div>
+          <Footer />
+        </div>
+      </main>
     </div>
   );
 }
 
-function Footer() {
-  return <footer className={footerStyle} />;
-}
-
 export default App;
 
-const wrapper = css`
+const wrapperStyle = css`
   min-height: 100%;
   display: flex;
   flex-direction: column;
 `;
 
-const container = css`
-  padding: 40px 40px 0px 40px;
-  height: 100%;
-  flex: 1;
+const containerStyle = css`
+  display: flex;
+  flex-grow: 1;
 `;
 
-const footerStyle = css`
-  flex-shrink: 0;
-  background-color: #ebebeb;
-  height: 50px;
+const mainContainerWrapperStyle = css`
+  background-color: rgb(255, 255, 255);
   display: flex;
-  justify-content: center;
-  align-items: center;
+  flex-direction: column;
+  flex-grow: 1;
+`;
+
+const commitsContainerStyle = css`
+  height: 100%;
+  margin: 0px 0px 16px;
+  min-width: 0px;
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
 `;

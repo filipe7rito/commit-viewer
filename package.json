@@ -18,9 +18,11 @@
   "dependencies": {
     "@ant-design/icons": "^4.6.2",
     "@testing-library/jest-dom": "^5.14.1",
+    "@types/github-url-to-object": "^4.0.1",
     "axios": "^0.21.1",
     "bootstrap": "^5.0.2",
     "emotion": "^9.2.12",
+    "github-url-to-object": "^4.0.6",
     "intersection-observer": "^0.12.0",
     "jest": "^27.0.6",
     "msw": "^0.32.0",
