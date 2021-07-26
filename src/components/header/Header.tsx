@@ -2,12 +2,9 @@ import { css, cx } from 'emotion';
 import gh from 'github-url-to-object';
 import * as React from 'react';
 import { useState } from 'react';
+import { User } from '../../types/user';
 
-export function Header({
-  onSearch,
-}: {
-  onSearch: ({ user, repository }: { user: string; repository: string }) => void;
-}) {
+export function Header({ onSearch }: { onSearch: ({ username, repository }: User) => void }) {
   const [repoUrlData, setRepoUrlData] = useState<{
     url: string;
     isValid: boolean;
@@ -33,7 +30,7 @@ export function Header({
       isValid: true,
     });
 
-    onSearch({ user: githubData.user, repository: githubData.repo });
+    onSearch({ username: githubData.user, repository: githubData.repo });
   };
 
   return (

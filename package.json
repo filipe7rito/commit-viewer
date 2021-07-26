@@ -21,6 +21,7 @@
     "@types/github-url-to-object": "^4.0.1",
     "axios": "^0.21.1",
     "bootstrap": "^5.0.2",
+    "dayjs": "^1.10.6",
     "emotion": "^9.2.12",
     "github-url-to-object": "^4.0.6",
     "intersection-observer": "^0.12.0",

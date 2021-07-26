@@ -1,22 +1,34 @@
 import { useEffect, useState } from 'react';
 import api from '../api';
-import { GithubInfo } from '../App';
-import { Commit } from '../types';
+import { User } from '../types/user';
+import { Commit } from '../types/commit';
 
-function useCommits(githubInfo: GithubInfo, nextPage?: string) {
+function useCommits({
+  user,
+  pageSize,
+  pageNumber,
+}: {
+  user: User;
+  pageSize: number;
+  pageNumber?: number;
+}) {
   const [commits, setCommits] = useState<Commit[]>([]);
   const [error, setError] = useState();
   const [isFetching, setIsFetching] = useState(false);
+  const [hasMore, setHasMore] = useState(true);
 
   const fetchData = async () => {
     setIsFetching(true);
 
-    const { user, repository } = githubInfo;
+    const { username, repository } = user;
 
     try {
-      const data = await api.commits.fetch({ user, repository });
+      const data = await api.commits.fetch({ username, repository, pageSize, page: pageNumber });
 
-      setCommits(data);
+      const newCommits = [...commits, ...data];
+
+      setCommits(newCommits);
+      setHasMore(data.length > 0);
     } catch (e) {
       setError(e);
     } finally {
@@ -26,9 +38,9 @@ function useCommits(githubInfo: GithubInfo, nextPage?: string) {
 
   useEffect(() => {
     fetchData();
-  }, [githubInfo, nextPage]);
+  }, [user, pageNumber]);
 
-  return { commits, isFetching, error };
+  return { commits, isFetching, hasMore, error };
 }
 
 export { useCommits };

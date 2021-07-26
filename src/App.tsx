@@ -1,20 +1,18 @@
 import { css } from 'emotion';
 import React, { useState } from 'react';
-import { Header } from './components/header';
-import { Footer } from './components/footer';
-import { Menu } from './components/menu/Menu';
 import { CommitsList } from './components/commits-list';
-
-export type GithubInfo = {
-  user: string;
-  repository: string;
-};
+import { Footer } from './components/footer';
+import { Header } from './components/header';
+import { Menu } from './components/menu/Menu';
+import { User } from './types/user';
 
 function App() {
-  const [githubInfo, setGithubInfo] = useState<GithubInfo>();
+  const [user, setUser] = useState<User>();
+  const [renderCount, setRenderCount] = useState(0);
 
-  const handleSearch = (info: GithubInfo) => {
-    setGithubInfo(info);
+  const handleSearch = (userInfo: User) => {
+    setUser(userInfo);
+    setRenderCount((current) => current + 1);
   };
 
   return (
@@ -26,7 +24,7 @@ function App() {
         </aside>
         <div className={mainContainerWrapperStyle}>
           <div className={commitsContainerStyle}>
-            <CommitsList githubInfo={githubInfo} />
+            <CommitsList key={renderCount} user={user} />
           </div>
           <Footer />
         </div>
@@ -59,7 +57,6 @@ const commitsContainerStyle = css`
   height: 100%;
   margin: 0px 0px 16px;
   min-width: 0px;
-  padding: 32px;
   display: flex;
   flex-direction: column;
 `;
