@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import api from '../api';
-import { User } from '../types/user';
+import { GithubInfo } from '../types/githubInfo';
 import { Commit } from '../types/commit';
 
 function useCommits({
@@ -8,7 +8,7 @@ function useCommits({
   pageSize,
   pageNumber,
 }: {
-  user: User;
+  user: GithubInfo;
   pageSize: number;
   pageNumber?: number;
 }) {

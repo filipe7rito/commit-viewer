@@ -3,7 +3,7 @@ import React from 'react';
 import { EmptyRow } from '../table/empty-row';
 
 // eslint-disable-next-line react/require-default-props
-export function EmptyState({ note }: { note?: string }) {
+export function EmptyState({ note, isLoading }: { note?: string; isLoading?: boolean }) {
   return (
     <div className={wrapperStyle}>
       <div className={noteStyle}>{note}</div>
@@ -11,7 +11,7 @@ export function EmptyState({ note }: { note?: string }) {
         <thead />
         <tbody>
           {[1, 2, 3, 4].map((val) => (
-            <EmptyRow key={val} isLoading={false} />
+            <EmptyRow key={val} isLoading={!!isLoading} />
           ))}
         </tbody>
       </table>

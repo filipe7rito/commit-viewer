@@ -1,15 +1,16 @@
 import { css } from 'emotion';
 import * as React from 'react';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { useCommits } from '../../state';
-import { User } from '../../types/user';
+import { GithubInfo } from '../../types/githubInfo';
 import { EmptyState } from './empty-state';
 import { Table } from './table';
 
 const PAGE_SIZE = 10;
 
-export function CommitsList({ user }: { user: User | undefined }) {
-  if (!user) {
+export function CommitsList({ githubInfo }: { githubInfo: GithubInfo | undefined }) {
+  // Initial state when we don't have info from github
+  if (!githubInfo) {
     return (
       <div className={listWrapperStyle}>
         <div className={listHeaderStyle}>
@@ -20,40 +21,46 @@ export function CommitsList({ user }: { user: User | undefined }) {
     );
   }
 
+  const isFirstSearch = useRef<boolean>(true);
+
   const [page, setPage] = useState<number>(0);
   const [filter, setFilter] = useState('');
+
+  const renderContent = () => {
+    const { commits, isFetching, hasMore, error } = useCommits({
+      user: githubInfo,
+      pageSize: PAGE_SIZE,
+      pageNumber: page,
+    });
+
+    /**
+     * State when an error occurred or we din't get data from API
+     * We could have a specific error state
+     */
+    if (error || (commits.length === 0 && !isFirstSearch)) {
+      return <EmptyState note="We couldn’t get the commits for this repository" />;
+    }
+
+    // Loading state for the first search
+    if (isFetching && commits.length === 0 && isFirstSearch) {
+      isFirstSearch.current = false;
+      return <EmptyState isLoading />;
+    }
+
+    return (
+      <Table
+        data={commits}
+        hasMore={hasMore}
+        loading={isFetching}
+        filterQuery={filter}
+        fetchData={handleFetchData}
+      />
+    );
+  };
 
   const handleFetchData = () => {
     setPage((currentPage) => currentPage + 1);
   };
-
-  const { commits, isFetching, hasMore, error } = useCommits({
-    user,
-    pageSize: PAGE_SIZE,
-    pageNumber: page,
-  });
-
-  if (error || (commits.length === 0 && !isFetching)) {
-    return (
-      <div className={listWrapperStyle}>
-        <div className={listHeaderStyle}>
-          <div>Commits list</div>
-        </div>
-        <EmptyState note="We couldn’t get the commits for this repository" />;{' '}
-      </div>
-    );
-  }
-
-  if (isFetching && commits.length === 0) {
-    return (
-      <div className={listWrapperStyle}>
-        <div className={listHeaderStyle}>
-          <div>Commits list</div>
-        </div>
-        <EmptyState />
-      </div>
-    );
-  }
 
   return (
     <div className={listWrapperStyle}>
@@ -73,14 +80,7 @@ export function CommitsList({ user }: { user: User | undefined }) {
           />
         </div>
       </div>
-
-      <Table
-        data={commits}
-        hasMore={hasMore}
-        loading={isFetching}
-        filterQuery={filter}
-        fetchData={handleFetchData}
-      />
+      {renderContent()}
     </div>
   );
 }

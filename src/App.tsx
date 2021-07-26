@@ -4,14 +4,14 @@ import { CommitsList } from './components/commits-list';
 import { Footer } from './components/footer';
 import { Header } from './components/header';
 import { Menu } from './components/menu/Menu';
-import { User } from './types/user';
+import { GithubInfo } from './types/githubInfo';
 
 function App() {
-  const [user, setUser] = useState<User>();
+  const [githubInfo, setGithubInfo] = useState<GithubInfo>();
   const [renderCount, setRenderCount] = useState(0);
 
-  const handleSearch = (userInfo: User) => {
-    setUser(userInfo);
+  const handleSearch = (newInfo: GithubInfo) => {
+    setGithubInfo(newInfo);
     setRenderCount((current) => current + 1);
   };
 
@@ -24,7 +24,7 @@ function App() {
         </aside>
         <div className={mainContainerWrapperStyle}>
           <div className={commitsContainerStyle}>
-            <CommitsList key={renderCount} user={user} />
+            <CommitsList key={renderCount} githubInfo={githubInfo} />
           </div>
           <Footer />
         </div>

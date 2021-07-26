@@ -26,10 +26,10 @@ export async function fetch({
       sha: record.sha,
       message: record.commit.message,
       author: {
-        id: record.author.id,
-        login: record.author.login,
+        id: record.author ? record.author.id : record.committer.id,
+        login: record.author ? record.author.login : record.committer.login,
         name: record.commit.author.name,
-        avatarUrl: record.author.avatar_url,
+        avatarUrl: record.author ? record.author.avatar_url : record.committer.avatar_url,
         date: record.commit.author.date,
       },
       parents: record.parents,
