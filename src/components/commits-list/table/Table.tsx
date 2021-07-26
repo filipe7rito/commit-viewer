@@ -1,5 +1,4 @@
-import * as dayjs from 'dayjs';
-import * as relativeTime from 'dayjs/plugin/RelativeTime';
+import moment from 'moment';
 import { css } from 'emotion';
 import React, { useCallback, useEffect, useMemo, useRef } from 'react';
 import { Column, useGlobalFilter, useTable, UseTableCellProps } from 'react-table';
@@ -87,9 +86,8 @@ export function Table({
 
         accessor: (record: Commit) => {
           const { author } = record;
-          dayjs.extend(relativeTime);
 
-          return <>{dayjs(author.date).fromNow()}</>;
+          return <>{moment(author.date).fromNow()}</>;
         },
       },
     ];
