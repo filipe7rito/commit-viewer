@@ -1,5 +1,5 @@
-import dayjs from 'dayjs';
-import relativeTime from 'dayjs/plugin/RelativeTime';
+import * as dayjs from 'dayjs';
+import * as relativeTime from 'dayjs/plugin/RelativeTime';
 import { css } from 'emotion';
 import React, { useCallback, useEffect, useMemo, useRef } from 'react';
 import { Column, useGlobalFilter, useTable, UseTableCellProps } from 'react-table';
