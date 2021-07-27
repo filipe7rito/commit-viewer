@@ -4,7 +4,7 @@
 
 ## Demo
 
-[https://commits-viewer.herokuapp.com/](https://blooming-waters-26703.herokuapp.com/)
+[https://commits-viewer.herokuapp.com/](https://commits-viewer.herokuapp.com/)
 
 ## Requirements
 
