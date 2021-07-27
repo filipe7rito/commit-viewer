@@ -23,7 +23,7 @@ export function CommitsList({ githubInfo }: { githubInfo: GithubInfo | undefined
 
   const isFirstSearch = useRef<boolean>(true);
 
-  const [page, setPage] = useState<number>(0);
+  const [page, setPage] = useState<number>(1);
   const [filter, setFilter] = useState('');
 
   const renderContent = () => {

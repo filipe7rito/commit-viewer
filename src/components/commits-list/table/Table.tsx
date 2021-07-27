@@ -116,12 +116,9 @@ export function Table({
       if (observer.current) observer.current.disconnect();
 
       observer.current = new IntersectionObserver((entries) => {
-        if (
-          entries[0].isIntersecting &&
-          !filterQuery &&
-          hasMore &&
-          entries[0].intersectionRatio < 1
-        ) {
+        const { isIntersecting } = entries[0];
+
+        if (isIntersecting && !filterQuery && hasMore) {
           fetchData();
         }
       });

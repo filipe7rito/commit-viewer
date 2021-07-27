@@ -25,11 +25,17 @@ function useCommits({
     try {
       const data = await api.commits.fetch({ username, repository, pageSize, page: pageNumber });
 
-      const newCommits = [...commits, ...data];
+      if (data.length > 0) {
+        const newCommits = [...commits, ...data];
 
-      setCommits(newCommits);
+        setCommits(newCommits);
+
+        return;
+      }
+
       setHasMore(data.length > 0);
     } catch (e) {
+      // We could manage errors how we want, let's just set  the incoming error
       setError(e);
     } finally {
       setIsFetching(false);
