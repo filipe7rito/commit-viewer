@@ -31,14 +31,18 @@ In order to install project dependencies you need to execute the following comma
 
 <br>
 
-## Available Scripts
-
-In the project directory, you can run the following scrips:
+## Docker mode
 
 ### `docker-compose up`
 
 Builds a docker image genarating a production build and raises a container with the respective image .<br>
 The container will serve the application on [http://localhost:8080](http://localhost:8080).
+
+<br>
+
+## Available Scripts
+
+In the project directory, you can run the following scrips:
 
 ### `npm run dev`
 
