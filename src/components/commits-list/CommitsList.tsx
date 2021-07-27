@@ -34,8 +34,8 @@ export function CommitsList({ githubInfo }: { githubInfo: GithubInfo | undefined
     });
 
     /**
-     * State when an error occurred or we din't get data from API
-     * We could have a specific error state
+     * State when an error occurred or we didn't get data from API
+     * We could have a specific error state for errors
      */
     if (error || (commits.length === 0 && !isFirstSearch)) {
       return <EmptyState note="We couldn’t get the commits for this repository" />;
