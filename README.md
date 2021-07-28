@@ -53,7 +53,7 @@ The page will reload trying to preserve the state due to react-refresh and Hot m
 
 ### `npm run test`
 
-Launches the test runner in the interactive watch mode.<br>
+Runs application tests .<br>
 
 ### `npm test:watch`
 
