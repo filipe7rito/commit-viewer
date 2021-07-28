@@ -11,7 +11,7 @@ describe('Commits', () => {
     repository: 'amazing-repo',
   };
 
-  it('Render transactions list with results', async () => {
+  it('Render commits list list with results', async () => {
     const { getByTestId } = renderTransactions();
 
     await waitFor(() => {

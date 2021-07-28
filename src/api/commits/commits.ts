@@ -2,6 +2,14 @@ import axios from 'axios';
 import { axiosRequestConfig } from '../apiConfig';
 import { Commit } from '../../types/commit';
 
+/**
+ * @param {username} username -github username
+ * @param {repository} repository - github repository
+ * @param {page} page - commits api page number
+ * @param {pageSize} pageSize - commits pages size
+ *
+ * @returns list of commits for a given repository
+ */
 export async function fetch({
   username,
   repository,
